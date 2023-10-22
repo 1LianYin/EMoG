@@ -39,7 +39,7 @@ colorization results; 2) in-context controllable colorization that edits the col
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>DiffColor</title>  
+    <title>EMoG</title>  
     <style>  
         body {  
             font-family: Arial, sans-serif;  
@@ -86,18 +86,18 @@ colorization results; 2) in-context controllable colorization that edits the col
 </head>  
 <body>  
   
-    <h1>DiffColor: Toward High Fidelity Text-Guided Image Colorization with Diffusion Models</h1>  
+    <h1>EMoG: Synthesizing Emotive Co-speech 3D Gesture with Diffusion Model</h1>  
   
-    <p class="authors">Jianxin Lin, Peng Xiao, Yijun Wang, Rongju Zhang, Xiangxiang Zeng</p>  
+    <p class="authors">Lianying Yin, Yijun Wang, Tianyu He, Jinming Liu, Wei Zhao, Bohan Li, Xin Jin, Jianxin Lin</p>  
   
     <h2>Abstract</h2>
-    <p class="abstract">Recent data-driven image colorization methods have enabled automatic or reference-based colorization, while still suffering from unsatisfactory and inaccurate object-level color control. To address these issues, we propose a new method called DiffColor that leverages the power of pre-trained diffusion models to recover vivid colors conditioned on a prompt text, without any additional inputs. DiffColor mainly contains two stages: colorization with generative color prior and in-context controllable colorization. Specifically, we first fine-tune a pre-trained text-to-image model to generate colorized images using a CLIP-based contrastive loss. Then we try to obtain an optimized text embedding aligning the colorized image and the text prompt, and a fine-tuned diffusion model enabling high-quality image reconstruction. Our method can produce vivid and diverse colors with a few iterations, and keep the structure and background intact while having colors well-aligned with the target language guidance. Moreover, our method allows for in-context colorization, i.e., producing different colorization results by modifying prompt texts without any fine-tuning, and can achieve object-level controllable colorization results. Extensive experiments and user studies demonstrate that DiffColor outperforms previous works in terms of visual quality, color fidelity, and diversity of colorization options.</p>
+    <p class="abstract">Co-speech 3D human gesture synthesis is a technique employed for generating realistic 3D animations of human motion, using audio signals as input. However, generating highly vivid motion remains a challenge due to the one-to-many nature between the speech content and gestures. This intricate association often leads to the oversight of certain gesture properties, notably the delicate differences of gesture emotion. Moreover, the complexity inherent in audio-driven 3D human gesture synthesis is compounded by the interaction of joint correlation and the temporal variation intrinsic to human gesture, often causing plain gesture generation. In this paper, we present a novel framework, dubbed EMotive Gesture generation (EMoG), to tackle the above challenges with denoising diffusion models: 1) To alleviate the one-to-many problem, we incorporate emotional representations extracted from audio into the distribution modeling process of the diffusion model, explicitly increasing the generation diversity; 2) To enable the emotive gesture generation,  we propose to decompose the difficult gesture generation into two sub-problems: joint correlation modeling and temporal dynamics modeling. Then, the two sub-problems are explicitly tackled with our proposed Temporal-dynamics and Joint-correlation aware Transformer (TJFormer). Through extensive evaluations, we demonstrate that our proposed method surpasses previous state-of-the-art approaches, offering substantial advantages in gesture synthesis. Furthermore, our approach exhibits the additional capabilities of enabling emotion transfer and affording fine-grained style control over specific body parts. This remarkable advancement paves the way for expressive gesture generation with heightened fidelity, opening up new possibilities for immersive experiences in the realm of 3D human gesture synthesis.</p>
     <h2>Method</h2>  
   
     <figure>  
-        <img src="assets/images/framework-v4-1.png" alt="Image description">  
-        <figcaption>Framework of Diffcolor. DiffColor mainly contains two stages: 1) colorization with generative color prior that produces accurate and vivid  
-colorization results; 2) in-context controllable colorization that edits the color of the first-stage output in a way that satisfies the target text prompt.</figcaption>  
+        <img src="assets/images/pipeline.png" alt="Image description">  
+        <figcaption>Framework of EMoG. In phase 1, given the raw audio, the initial step involves utilizing the pretrained wav2vec 2.0 model alongside a linear layer to obtain the aligned audio feature referred to as A. Then, a classifier is trained using a supervised manner to distinguish the audio emotion attribute. 
+          In phase 2, given the noise gesture sequence x_t, we establish the conditional denoising process in gesture space.</figcaption>  
     </figure>  
   
     <h2>Colorization</h2>  
